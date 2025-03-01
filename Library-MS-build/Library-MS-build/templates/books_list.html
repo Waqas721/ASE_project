@@ -1,0 +1,199 @@
+<!-- templates/books_list.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  h2 {
+    color: #0171d3; /* Blue shade */
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
+
+  th {
+    background-color: #004B8D; /* Blue shade */
+    color: #fff;
+  }
+
+  tr.available {
+    background-color: #d4edda; /* Light green for available books */
+  }
+
+  tr.unavailable {
+    background-color: #f8d7da; /* Light red for unavailable books */
+  }
+
+  td input, td button {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #004B8D; /* Blue background */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+
+  .update-button {
+    background-color: #007BFF; /* Lighter blue for update button */
+  }
+
+  .update-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .remove-button {
+    background-color: #dc3545; /* Red for remove button */
+  }
+
+  .remove-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .form-container input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .form-container button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  a {
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  hr {
+    border-top: 2px solid #004B8D;
+    margin: 20px 0;
+  }
+</style>
+
+<h2>Books List</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book ID</th>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Publisher</th>
+      <th>Publish Date</th>
+      <th>Availability</th>
+      <th>Copies</th>
+
+      {% if user_type == 'librarian' %}
+      <th>Action</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in books %}
+    <tr 
+      {% if book.book_availability_status == 'True' and book.book_copies|int > 0 %}
+         class="available"
+      {% else %}
+         class="unavailable"
+      {% endif %}
+    >
+      <td>{{ book.book_id }}</td>
+      <td>{{ book.book_name }}</td>
+      <td>{{ book.book_author }}</td>
+      <td>{{ book.book_publisher }}</td>
+      <td>{{ book.book_publish_date }}</td>
+      <td>
+        {% if book.book_availability_status == 'True' %}
+          Yes
+        {% else %}
+          No
+        {% endif %}
+      </td>
+      <td>{{ book.book_copies }}</td>
+
+      {% if user_type == 'librarian' %}
+      <td>
+          <form action="{{ url_for('librarian_update_book') }}"
+                method="POST"
+                style="display:inline;">
+            <input type="hidden" name="book_id" value="{{ book.book_id }}">
+            <input type="text" name="book_name" placeholder="Name" value="{{ book.book_name }}">
+            <input type="text" name="book_author" placeholder="Author" value="{{ book.book_author }}">
+            <input type="text" name="book_publisher" placeholder="Publisher" value="{{ book.book_publisher }}">
+            <input type="text" name="book_publish_date" placeholder="DD-MM-YYYY" value="{{ book.book_publish_date }}">
+            <input type="number" name="book_copies" placeholder="Copies" value="{{ book.book_copies }}" min="0">
+            <button type="submit" class="update-button">Update</button>
+          </form>
+
+          <form action="{{ url_for('librarian_remove_book') }}"
+                method="POST"
+                onsubmit="return confirmRemove('{{ book.book_name }}');"
+                style="display:inline;">
+            <input type="hidden" name="book_id" value="{{ book.book_id }}">
+            <button type="submit" class="remove-button">Remove</button>
+          </form>
+      </td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% if user_type == 'librarian' %}
+<hr>
+<h3 style="text-align: center; font-family: Arial, sans-serif; color: #e2dede;">Add a New Book</h3>
+<div class="form-container" style="max-width: 400px; margin: 20px auto; padding: 20px; background-color: #153e46; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); border-radius: 8px; font-family: Arial, sans-serif;">
+  <form action="{{ url_for('librarian_add_book') }}" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+    <input type="text" name="book_name" placeholder="Book Name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <input type="text" name="book_author" placeholder="Author" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <input type="text" name="book_publisher" placeholder="Publisher" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <input type="text" name="book_publish_date" placeholder="DD-MM-YYYY" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <input type="number" name="book_copies" placeholder="Copies" min="1" value="1" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <button type="submit" style="padding: 12px; background-color: #007BFF; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">Add Book</button>
+  </form>
+</div>
+
+
+<p><a href="{{ url_for('librarian_dashboard') }}">Return to Librarian Dashboard</a></p>
+{% elif user_type == 'student' %}
+<p><a href="{{ url_for('student_dashboard') }}">Return to Student Dashboard</a></p>
+{% endif %}
+{% endblock %}

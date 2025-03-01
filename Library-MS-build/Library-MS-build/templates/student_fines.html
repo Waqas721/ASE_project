@@ -1,0 +1,45 @@
+<!-- templates/student_fines.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  h2 {
+    color: #0677da; /* Blue shade */
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    color: #a9a9a9;
+    text-align: center;
+  }
+
+  strong {
+    color: #004B8D; /* Blue shade for fine amount */
+    font-size: 18px;
+  }
+
+  a {
+    font-size: 16px;
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h2>Your Fines</h2>
+<p>Your total fine is: <strong>Rs. {{ fine_amount }}</strong></p>
+
+<p><a href="{{ url_for('student_dashboard') }}">Return to Student Dashboard</a></p>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+/* static/css/styles.css */
+
+/* Base styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f6f6f6;
+    color: #333;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+header nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #0066cc;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    margin-top: 5px;
+}
+
+#flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#flash-messages li {
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+#flash-messages li.success {
+    background-color: #c0f2c0;
+    color: #0a0;
+}
+
+#flash-messages li.error {
+    background-color: #f2c0c0;
+    color: #a00;
+}
+
+/* Form styling */
+label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+}
+
+button {
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+table th,
+table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Available vs. Unavailable styling */
+.available {
+    background-color: #e6ffe6; /* pale green */
+}
+.unavailable {
+    background-color: #ffe6e6; /* pale red */
+}
+
+/* Action button classes */
+.borrow-button {
+    background-color: #c2ffe5;
+}
+.return-button {
+    background-color: #ffebc2;
+}
+.remove-button {
+    background-color: #ffc2c2;
+}
+.update-button {
+    background-color: #c2d6ff;
+}

@@ -1,0 +1,90 @@
+<!-- templates/librarian_add_fine.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  h2 {
+    color: #004B8D; /* Blue shade */
+  }
+
+  label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="text"], input[type="number"] {
+    padding: 8px;
+    margin: 5px 0;
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #004B8D; /* Blue background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+
+  p {
+    font-size: 16px;
+    color: #333;
+  }
+
+  a {
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  hr {
+    border-top: 2px solid #004B8D;
+    margin: 20px 0;
+  }
+</style>
+
+<h2>Add a Manual Fine</h2>
+
+<form method="POST">
+  <label>Student ID:</label>
+  <input type="text" name="student_id" value="{{ default_stud_id }}" required><br><br>
+
+  <label>Fine Amount:</label>
+  <input type="number" step="0.01" name="fine_amount" required><br><br>
+
+  <label>Reason:</label>
+  <input type="text" name="reason"><br><br>
+
+  <!-- hidden input to handle redirection -->
+  <input type="hidden" name="redirect_page" value="{{ redirect_page }}">
+
+  <button type="submit">Add Fine</button>
+</form>
+
+{% if redirect_page == 'librarian_borrowed_books' %}
+<p><a href="{{ url_for('librarian_borrowed_books') }}">Back to Borrowed Books</a></p>
+{% else %}
+<p><a href="{{ url_for('librarian_transactions') }}">Back to Transactions</a></p>
+{% endif %}
+
+{% endblock %}

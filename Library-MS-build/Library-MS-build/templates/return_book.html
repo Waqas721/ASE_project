@@ -1,0 +1,102 @@
+<!-- templates/return_book.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  h2 {
+    color: #004B8D; /* Blue shade */
+  }
+
+  p {
+    font-size: 16px;
+    color: #333;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
+  form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="text"] {
+    padding: 8px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #004B8D; /* Blue background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+
+  p a {
+    font-size: 16px;
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  p a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h2>Return a Book</h2>
+
+{% if borrowed_books %}
+  <p>You have borrowed the following books:</p>
+  <ul>
+    {% for book in borrowed_books %}
+      <li>{{ book.book_id }} - {{ book.book_name }} (Borrowed on {{ book.borrow_date }})</li>
+    {% endfor %}
+  </ul>
+
+  <form method="POST">
+    <label>Enter Book ID to Return:</label>
+    <input type="text" name="book_id" required>
+    <button type="submit">Return</button>
+  </form>
+{% else %}
+  <p>No borrowed books at this time.</p>
+{% endif %}
+
+{% endblock %}

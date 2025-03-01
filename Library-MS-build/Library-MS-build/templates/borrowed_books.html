@@ -1,0 +1,118 @@
+<!-- templates/borrowed_books.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #eeeeee;
+  }
+
+  h2 {
+    color: #007ce9; /* Blue shade */
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
+
+  th {
+    background-color: #004B8D; /* Blue shade */
+    color: #fff;
+  }
+
+  td input, td button {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #004B8D; /* Blue background */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+
+  .return-button {
+    background-color: #dc3545; /* Red for return button */
+  }
+
+  .return-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+
+  a {
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  hr {
+    border-top: 2px solid #004B8D;
+    margin: 20px 0;
+  }
+</style>
+
+<h2>Your Borrowed Books</h2>
+
+{% if borrowed_books %}
+<table>
+  <thead>
+    <tr>
+      <th>Book ID</th>
+      <th>Title</th>
+      <th>Borrow Date</th>
+      <th>Return</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in borrowed_books %}
+    <tr>
+      <td>{{ book.book_id }}</td>
+      <td>{{ book.book_name }}</td>
+      <td>{{ book.borrow_date }}</td>
+      <td>
+        <form action="{{ url_for('student_return') }}"
+              method="POST"
+              onsubmit="return confirmReturn('{{ book.book_name }}');"
+              style="display:inline;">
+          <input type="hidden" name="book_id" value="{{ book.book_id }}">
+          <button type="submit" class="return-button">Return</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>You currently have no borrowed books.</p>
+{% endif %}
+
+<p><a href="{{ url_for('student_dashboard') }}">Return to Student Dashboard</a></p>
+{% endblock %}

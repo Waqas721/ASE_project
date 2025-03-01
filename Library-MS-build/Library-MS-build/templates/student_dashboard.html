@@ -1,0 +1,76 @@
+<!-- templates/student_dashboard.html -->
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  h2 {
+    color: #004B8D; /* Blue shade */
+  }
+
+  p {
+    font-size: 16px;
+    color: #d6d6d6;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  a {
+    color: #004B8D;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  button {
+    background-color: #004B8D; /* Blue background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #003366; /* Darker blue on hover */
+  }
+</style>
+
+<h2>Student Dashboard</h2>
+<p>Welcome, {{ session.student_name }} (ID: {{ session.student_id }})</p>
+
+<ul>
+  <li><a href="{{ url_for('student_view_books') }}">View All Books</a></li>
+  <li><a href="{{ url_for('student_borrow_books') }}">Borrow a Book</a></li>
+  <li><a href="{{ url_for('student_borrowed_books') }}">View Borrowed Books</a></li>
+  <li><a href="{{ url_for('student_check_fines') }}">Check Fines</a></li>
+</ul>
+
+<!-- De-register button -->
+<form action="{{ url_for('student_deregister') }}" method="POST" style="display:inline;">
+  <button type="submit" onclick="return confirm('Are you sure to de-register?')">De-Register</button>
+</form>
+
+{% endblock %}

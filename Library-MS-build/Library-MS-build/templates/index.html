@@ -1,0 +1,398 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+    /* 
+      Example styling with a dark/blue gradient background, 
+      centered text, and some basic typography. 
+      Adjust colors, padding, margins, etc. to your preference.
+    */
+
+    body {
+      margin: 0;
+      /* Black to dark blue gradient background */
+      background: linear-gradient(190deg, #010f31, #0252a3);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #FFFFFF; /* White text for contrast */
+    }
+
+    .container {
+      /* Center the main content and give it a max width */
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    color: #0062b7; 
+    margin-bottom: 30px;
+    }
+
+  .team-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  .team-member {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px); /* Hover effect */
+  }
+
+  .team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .team-member h3 {
+    font-size: 20px;
+    color: #004B8D; /* Blue shade */
+    margin-bottom: 10px;
+  }
+
+  .team-member p {
+    font-size: 14px;
+    color: #666;
+  } h2 {
+    text-align: center;
+    color: #0a71cb; /* Blue shade */
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .team-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  .team-member {
+    background: linear-gradient(190deg, #032f5b, #6691bc);
+    border-radius: 8px;
+    width: 270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px); /* Hover effect */
+  }
+
+  .team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .team-member h3 {
+    font-size: 20px;
+    color: #000b14; /* Blue shade */
+    margin-bottom: 10px;
+  }
+
+  .team-member p {
+    font-size: 14px;
+    color: #e8e8e8;
+  }
+  .team-member h5 {
+    font-size: 16px;
+    color: #e8e8e8;
+    margin-top: -10px;
+  }
+
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Example style for emphasizing strong and em elements */
+    strong {
+      color: #00bfff; /* Lighter blue for emphasis */
+    }
+
+    em {
+      color: #ffd700; /* Gold color for emphasis */
+      font-style: normal;
+      text-decoration: underline;
+    }
+
+     .summary-container {
+    max-width: 1200px;
+    margin: 150px auto;
+    padding: 20px;
+    background-color: #333333;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section h3 {
+    color: #0667bc;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .section p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  .section ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #d5d5d5;
+  }
+
+  /* Styling for the list of benefits and key principles */
+  .section ul li {
+    font-size: 16px;
+    color: #d9d9d9;
+  }
+
+  /* Styling for each principle */
+  .principle {
+    background-color: #000913;
+    border-left: 5px solid #006ccb;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+
+  .principle h4 {
+    font-size: 20px;
+    color: #0367be;
+  }
+
+  .principle p {
+    font-size: 16px;
+    color: #555;
+  }
+  </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Welcome to the Library Management System</h2>
+
+      {% if session.student_id is defined and session.student_id %}
+      <!-- Student is logged in -->
+      <p>You are currently logged in as a <strong>Student</strong>.
+        Please use the <em>Student Dashboard</em> link above to access your
+        options.</p>
+
+      {% elif session.lib_id is defined and session.lib_id %}
+      <!-- Librarian is logged in -->
+      <p>You are currently logged in as a <strong>Librarian</strong>.
+        Please use the <em>Librarian Dashboard</em> link above to access your
+        tasks.</p>
+
+      {% else %}
+      <!-- Nobody is logged in -->
+      <p>Please login from the menu above, or create an account under the
+        Login pages.</p>
+      {% endif %}
+    </div>
+    <div>
+      <h2>Meet Our Team</h2>
+
+      <div class="team-container">
+        <!-- Member 1 -->
+        <div class="team-member">
+          <img src="static/images/bilal.jpeg" alt="Member 1">
+          <h3>Muhammad Bilal Nadeem</h3>
+          <h5>B21110006069</h5>
+          <p>Full-stack software developer with expertise in crafting seamless web applications. His skills span from intuitive front-end design to robust backend solutions, ensuring end-to-end functionality and an exceptional user experience.</p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-member">
+          <img src="static/images/waqas.jpeg" alt="Member 2">
+          <h3>Muhammad Waqas Ansari</h3>
+          <h5>B21110006095</h5>
+          <p>Versatile full-stack developer with a keen eye for detail. He specializes in creating dynamic interfaces and scalable backend systems, bridging the gap between creativity and technology to deliver impactful solutions.</p>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="team-member">
+          <img src="static/images/wahaj.jpeg" alt="Member 3">
+          <h3>Muhammad Wahaj ul Haq</h3>
+          <h5>B21110006093</h5>
+          <p>Dynamic full-stack developer who excels in building feature-rich applications. He combines his expertise in agile development with a focus on clean code to deliver reliable and high-quality software.</p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="team-member">
+          <img src="static/images/hamza.jpeg" alt="Member 4">
+          <h3>Hamza Abdeali</h3>
+          <h5>B21110006036</h5>
+          <p>Skilled full-stack developer with strong proficiency in server-side programming and database architecture. He thrives on solving complex challenges and delivering efficient</p>
+        </div>
+      </div>
+    </div>
+    <div class="summary-container">
+      <h2>Summary of Library Management Application</h2>
+
+      <!-- Singleton Pattern Section -->
+      <div class="section">
+        <h3>1. Singleton Pattern in Library Management Application</h3>
+        <p>The <strong>Singleton Pattern</strong> is a design pattern that
+          restricts the instantiation of a class to only one object. In the
+          context of the <strong>Library Management Application</strong>, the
+          Singleton pattern is used to ensure that only one instance of certain
+          critical classes, such as the <strong>Database Connection</strong> or
+          <strong>Library System Controller</strong>, exists throughout the
+          application's lifecycle. This guarantees that the same instance is
+          accessed consistently, thus preventing issues that might arise from
+          having multiple instances managing resources or performing
+          operations.</p>
+
+        <div class="principle">
+          <h4>Benefits of Singleton Pattern:</h4>
+          <ul>
+            <li><strong>Resource Management:</strong> Only one instance of
+              important classes like database connections is created, ensuring
+              efficient use of resources.</li>
+            <li><strong>Consistency:</strong> The Singleton ensures that all
+              components that need to interact with these classes are working
+              with the same instance, which provides a unified and consistent
+              state.</li>
+            <li><strong>Thread Safety:</strong> When implemented correctly, the
+              Singleton pattern can ensure thread-safe access to its instance in
+              multi-threaded environments.</li>
+          </ul>
+        </div>
+
+        <p>In the library management system, the Singleton pattern might be
+          applied to classes such as:</p>
+        <ul>
+          <li><strong>DatabaseHandler</strong>: Ensures only one connection to
+            the database is used throughout the application.</li>
+          <li><strong>LibraryManager</strong>: Acts as a single access point to
+            the various functionalities of the library, like managing books,
+            issuing, returning books, etc.</li>
+        </ul>
+      </div>
+
+      <!-- Object-Oriented Programming (OOP) Section -->
+      <div class="section">
+        <h3>2. Object-Oriented Programming (OOP) in Library Management
+          Application</h3>
+        <p><strong>Object-Oriented Programming (OOP)</strong> is a programming
+          paradigm that organizes software design around objects and data rather
+          than functions and logic. In the <strong>Library Management
+            Application</strong>, OOP principles help structure the application
+          in a way that is modular, maintainable, and easy to extend.</p>
+
+        <div class="principle">
+          <h4>Key OOP Principles Applied:</h4>
+          <ul>
+            <li><strong>Encapsulation:</strong> OOP allows for bundling the data
+              (attributes) and methods (functions) that operate on the data into
+              a single unit or class. For example, a <strong>Book</strong> class
+              encapsulates details like title, author, publisher, availability,
+              and methods for issuing and returning the book.</li>
+            <li><strong>Inheritance:</strong> Inheritance allows one class to
+              inherit the attributes and methods of another. For example, a base
+              class <strong>User</strong> could be inherited by specialized
+              classes like <strong>Student</strong> and
+              <strong>Librarian</strong>, which would inherit common properties
+              like <strong>user_id</strong> and <strong>name</strong>, and also
+              have their own unique methods specific to each type of user.</li>
+            <li><strong>Polymorphism:</strong> Polymorphism allows different
+              classes to define methods with the same name but with different
+              behaviors. For example, both <strong>Student</strong> and
+              <strong>Librarian</strong> might have a
+              <strong>borrow_book()</strong> method, but each would implement it
+              differently based on user permissions.</li>
+            <li><strong>Abstraction:</strong> Abstraction hides the complex
+              implementation details and only exposes the essential features.
+              For example, a <strong>LibrarySystem</strong> class may expose
+              high-level methods such as <strong>borrow_book()</strong> and
+              <strong>return_book()</strong> while hiding the complexities of
+              the underlying database operations.</li>
+          </ul>
+        </div>
+
+        <p>Benefits of OOP in Library Management:</p>
+        <ul>
+          <li><strong>Modularity:</strong> Each functionality (like managing
+            books, users, fines) is separated into different classes, making the
+            code easier to manage and modify.</li>
+          <li><strong>Reusability:</strong> Through inheritance and
+            polymorphism, code components can be reused, reducing redundancy and
+            increasing maintainability.</li>
+          <li><strong>Maintainability:</strong> As the application grows,
+            object-oriented principles allow for easier updates and
+            improvements, especially with the clear structure and modular
+            design.</li>
+          <li><strong>Scalability:</strong> The system can easily be extended by
+            adding new classes (e.g., a new <strong>Admin</strong> user class)
+            without disrupting the existing code.</li>
+        </ul>
+
+        <p>Examples of OOP in the Library Management System:</p>
+        <ul>
+          <li><strong>Classes:</strong> <strong>Book</strong>,
+            <strong>User</strong>, <strong>Transaction</strong>,
+            <strong>Fine</strong>, <strong>LibraryManager</strong>, etc.</li>
+          <li><strong>Inheritance:</strong> <strong>Student</strong> and
+            <strong>Librarian</strong> classes inheriting from a common
+            <strong>User</strong> class.</li>
+          <li><strong>Encapsulation:</strong> <strong>Book</strong> class
+            encapsulating details like <strong>book_id</strong>,
+            <strong>book_name</strong>, and methods like
+            <strong>check_availability()</strong>.</li>
+          <li><strong>Polymorphism:</strong> Different
+            <strong>borrow_book()</strong> methods for <strong>Student</strong>
+            and <strong>Librarian</strong> classes.</li>
+        </ul>
+      </div>
+
+      <h3>Conclusion</h3>
+      <p>The <strong>Library Management Application</strong> leverages the
+        <strong>Singleton Pattern</strong> and <strong>Object-Oriented
+          Programming (OOP)</strong> principles to create a robust, efficient,
+        and maintainable system. The Singleton pattern ensures that critical
+        resources like database connections are managed in a centralized manner,
+        while OOP principles like encapsulation, inheritance, and polymorphism
+        help organize the system in a modular and scalable way. Together, these
+        design patterns make the library management system more flexible, easier
+        to maintain, and capable of growing to accommodate future
+        requirements.</p>
+    </div>
+  </body>
+</html>
+{% endblock %}
